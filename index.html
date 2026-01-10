@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pani, Puri & Paps | The Funky Street Food</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --pastel-mint: #e0f2f1;
@@ -23,7 +25,10 @@
             margin: 0;
         }
 
-        h1, h2, h3, .funky-font {
+        h1,
+        h2,
+        h3,
+        .funky-font {
             font-family: 'Syne', sans-serif;
             text-transform: uppercase;
         }
@@ -37,10 +42,17 @@
             position: relative;
         }
 
-        /* Pani Puri Animation Styles */
+        .hero-content {
+            transform: translateY(-25vh);
+            /* Adjusted higher */
+            text-align: center;
+            z-index: 20;
+        }
+
         #puri-container {
-            position: sticky;
-            top: 50%;
+            position: absolute;
+            top: 55%;
+            /* Positioned directly under the shifted text */
             transform: translateY(-50%);
             width: 300px;
             height: 300px;
@@ -56,7 +68,6 @@
             will-change: transform, opacity;
         }
 
-        /* Rain drops container - placed behind the puri shells but in front of background */
         #rain-overlay {
             position: fixed;
             top: 0;
@@ -64,7 +75,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 45; /* Between background and puri shell */
+            z-index: 45;
         }
 
         .rain-drop {
@@ -73,9 +84,11 @@
             border-radius: 50%;
             opacity: 0;
             will-change: transform, opacity;
+            left: 50%;
+            top: 35%;
+            /* Synced with the puri-container sticky top */
         }
 
-        /* Menu Reveal Styles */
         .content-section {
             min-height: 100vh;
             padding: 10rem 2rem;
@@ -97,7 +110,7 @@
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             border: 2px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .menu-card.visible {
@@ -105,7 +118,6 @@
             opacity: 1;
         }
 
-        /* Modal Styles */
         #contact-modal {
             transition: opacity 0.4s ease;
         }
@@ -131,9 +143,22 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         .blob-bg {
@@ -145,11 +170,17 @@
         }
 
         @keyframes move {
-            from { transform: translate(-10%, -10%) rotate(0deg); }
-            to { transform: translate(10%, 10%) rotate(360deg); }
+            from {
+                transform: translate(-10%, -10%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(10%, 10%) rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body class="overflow-x-hidden">
 
     <div id="rain-overlay"></div>
@@ -159,37 +190,61 @@
 
     <nav class="fixed top-0 w-full p-6 flex justify-between items-center z-[100]">
         <div class="text-2xl font-bold funky-font tracking-tighter">Pani, Puri & Paps</div>
-        <button id="open-contact" class="bg-black text-white px-6 py-2 rounded-full cursor-pointer hover:scale-105 transition-transform font-semibold">CONTACT US</button>
+        <button id="open-contact"
+            class="bg-black text-white px-6 py-2 rounded-full cursor-pointer hover:scale-105 transition-transform font-semibold">CONTACT
+            US</button>
     </nav>
 
-    <div id="contact-modal" class="fixed inset-0 z-[1000] flex items-center justify-center p-4 opacity-0 pointer-events-none bg-black/40 backdrop-blur-sm">
+    <div id="contact-modal"
+        class="fixed inset-0 z-[1000] flex items-center justify-center p-4 opacity-0 pointer-events-none bg-black/40 backdrop-blur-sm">
         <div class="modal-content bg-white w-full max-w-xl rounded-[2.5rem] overflow-hidden relative shadow-2xl">
-            <button id="close-modal" class="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <button id="close-modal"
+                class="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
             </button>
             <div class="p-8 md:p-12 text-center">
                 <div class="inline-block p-4 bg-green-100 rounded-3xl mb-6">
-                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
                 </div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 funky-font leading-tight">Visit Our Stall</h2>
                 <p class="text-xl text-gray-700 mb-8 leading-relaxed">
-                    Find us at <span class="font-bold text-black">Coles Street Market</span> every <span class="text-green-600 font-bold underline decoration-2 underline-offset-4">Tuesday</span> from <span class="font-bold">4pm to 7pm</span>.
+                    Find us at <span class="font-bold text-black">Coles Street Market</span> every <span
+                        class="text-green-600 font-bold underline decoration-2 underline-offset-4">Tuesday</span> from
+                    <span class="font-bold">4pm to 7pm</span>.
                 </p>
-                <a href="https://share.google/4uIeIVb157g2wtErm" target="_blank" class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all hover:shadow-lg hover:scale-105 active:scale-95 group">
+                <a href="https://share.google/4uIeIVb157g2wtErm" target="_blank"
+                    class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all hover:shadow-lg hover:scale-105 active:scale-95 group">
                     <span>VIEW ON GOOGLE MAPS</span>
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
                 </a>
             </div>
         </div>
     </div>
 
     <section class="hero-section">
-        <div class="text-center mb-12">
-            <h1 class="text-6xl md:text-8xl mb-4 leading-none">Crunchy<br><span class="text-green-600">Magic.</span></h1>
-            <p class="text-lg opacity-60">Scroll to break the shell</p>
+        <div class="hero-content">
+            <h1 class="text-6xl md:text-8xl mb-4 leading-none">Crunchy<br><span class="text-green-600">Magic.</span>
+            </h1>
+            <p class="text-lg opacity-60">Scroll to pop the flavor</p>
         </div>
         <div class="scroll-indicator">
-            <svg class="w-8 h-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            <svg class="w-8 h-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
         </div>
     </section>
 
@@ -208,13 +263,15 @@
             <div class="menu-card">
                 <div class="text-5xl mb-6">🥟</div>
                 <h3 class="text-2xl font-bold mb-2 funky-font">Signature Pani Puri</h3>
-                <p class="text-gray-600">Hand-crafted crispy spheres filled with spiced potatoes and tangy mint water.</p>
+                <p class="text-gray-600">Hand-crafted crispy spheres filled with spiced potatoes and tangy mint water.
+                </p>
                 <div class="mt-6 text-xl font-bold">$6.00</div>
             </div>
             <div class="menu-card">
                 <div class="text-5xl mb-6">☕</div>
                 <h3 class="text-2xl font-bold mb-2 funky-font">Filter Coffee</h3>
-                <p class="text-gray-600">Strong, frothy South Indian decoction with hot frothed milk. The classic perk-up.</p>
+                <p class="text-gray-600">Strong, frothy South Indian decoction with hot frothed milk. The classic
+                    perk-up.</p>
                 <div class="mt-6 text-xl font-bold">$4.00</div>
             </div>
             <div class="menu-card">
@@ -243,92 +300,84 @@
         let lastScrollY = window.scrollY;
         let ticking = false;
 
-        // Increased filling count
-        const dropCount = 150;
+        const dropCount = 180;
         const drops = [];
-        
+
         const initDrops = () => {
             rainOverlay.innerHTML = '';
             drops.length = 0;
             const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
+            // Center of burst now aligned with top: 35%
+            const centerY = window.innerHeight * 0.35;
 
             for (let i = 0; i < dropCount; i++) {
                 const drop = document.createElement('div');
                 drop.className = 'rain-drop';
-                
-                const size = Math.random() * 10 + 4;
-                
-                // Positioned exactly at screen center (where sticky puri sits)
+
+                const size = Math.random() * 8 + 4;
                 drop.style.width = `${size}px`;
                 drop.style.height = `${size}px`;
                 drop.style.left = `${centerX}px`;
                 drop.style.top = `${centerY}px`;
-                
+
                 rainOverlay.appendChild(drop);
-                
-                // Randomized burst physics
+
                 drops.push({
                     element: drop,
-                    speed: Math.random() * 1.8 + 1.2,
-                    drift: (Math.random() - 0.5) * 1200, // Wide lateral spray
-                    burstY: (Math.random() - 0.5) * 400, // Initial vertical pop
-                    delay: Math.random() * 0.15
+                    speed: Math.random() * 2 + 1.2,
+                    drift: (Math.random() - 0.5) * 1400,
+                    burstY: (Math.random() - 0.5) * 450,
+                    delay: Math.random() * 0.25
                 });
             }
         };
 
-        const updateAnimations = () => {
+        const updateVisuals = () => {
             const viewportHeight = window.innerHeight;
-            const scrollPercent = Math.min(lastScrollY / (viewportHeight * 0.9), 1.5);
-            
-            // 1. Smooth Puri Breaking
-            if (scrollPercent < 0.02) {
+            const progress = Math.min(lastScrollY / (viewportHeight * 0.9), 1.2);
+
+            if (progress < 0.02) {
                 puriTop.style.transform = `translate(0, 0) rotate(0deg)`;
                 puriBottom.style.transform = `translate(0, 0) rotate(0deg)`;
                 puriTop.style.opacity = '1';
                 puriBottom.style.opacity = '1';
             } else {
-                const breakProgress = Math.max(0, scrollPercent - 0.02);
-                const yMove = breakProgress * 500;
-                const xMove = breakProgress * 80;
-                const rotate = breakProgress * 45;
-                
+                const breakProgress = Math.max(0, progress - 0.02);
+                const yMove = breakProgress * 550;
+                const xMove = breakProgress * 100;
+                const rotate = breakProgress * 50;
+
                 puriTop.style.transform = `translate(-${xMove}px, -${yMove}px) rotate(-${rotate}deg)`;
                 puriBottom.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${rotate}deg)`;
-                
+
                 const opacity = Math.max(0, 1 - (breakProgress * 1.8));
                 puriTop.style.opacity = opacity;
                 puriBottom.style.opacity = opacity;
             }
 
-            // 2. Continuous "Burst from Center" Rain
             const rainStartThreshold = 0.04;
             drops.forEach((d) => {
-                const localProgress = Math.max(0, scrollPercent - rainStartThreshold - d.delay);
-                
+                const localProgress = Math.max(0, progress - rainStartThreshold - d.delay);
+
                 if (localProgress > 0) {
-                    // Start from (0,0) relative to its center-screen position
-                    // Y motion includes initial burst pop then gravity fall
-                    const y = (localProgress * viewportHeight * 2 * d.speed) + (d.burstY * localProgress);
+                    const y = (localProgress * viewportHeight * 2.8 * d.speed) + (d.burstY * localProgress);
                     const x = localProgress * d.drift;
-                    
-                    // Fade in quickly at start, out slowly at end
+
                     let opacity = 1;
-                    if (localProgress < 0.05) opacity = localProgress * 20;
+                    if (localProgress < 0.04) opacity = localProgress * 25;
                     else if (localProgress > 0.8) opacity = Math.max(0, 1 - (localProgress - 0.8) * 5);
-                    
+
                     d.element.style.opacity = opacity;
                     d.element.style.transform = `translate(${x - 5}px, ${y - 5}px) scale(${1 + localProgress})`;
                 } else {
                     d.element.style.opacity = '0';
+                    d.element.style.transform = `translate(0,0) scale(1)`;
                 }
             });
 
-            // 3. Subtle Parallax for the Shell Container
-            puriContainer.style.transform = `translateY(calc(-50% + ${lastScrollY * 0.08}px))`;
+            // Parallax shift for sticky container
+            puriContainer.style.transform = `translateY(calc(-50% + ${lastScrollY * 0.05}px))`;
 
-            // 4. Card Reveal
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 if (rect.top < viewportHeight * 0.9) {
@@ -342,14 +391,16 @@
         window.addEventListener('scroll', () => {
             lastScrollY = window.scrollY;
             if (!ticking) {
-                window.requestAnimationFrame(updateAnimations);
+                window.requestAnimationFrame(updateVisuals);
                 ticking = true;
             }
         });
 
-        window.addEventListener('resize', initDrops);
+        window.addEventListener('resize', () => {
+            initDrops();
+            updateVisuals();
+        });
 
-        // Modal Logic
         const toggleModal = () => {
             contactModal.classList.toggle('active');
             document.body.style.overflow = contactModal.classList.contains('active') ? 'hidden' : 'auto';
@@ -360,9 +411,11 @@
         contactModal.addEventListener('click', (e) => { e.target === contactModal && toggleModal(); });
         window.addEventListener('keydown', (e) => { e.key === 'Escape' && contactModal.classList.contains('active') && toggleModal(); });
 
-        // Initial setup
-        initDrops();
-        updateAnimations();
+        window.onload = () => {
+            initDrops();
+            updateVisuals();
+        };
     </script>
 </body>
+
 </html>
