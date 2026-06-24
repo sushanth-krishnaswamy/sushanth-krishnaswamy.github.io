@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    Replace `$FLUTTER_BASE_HREF` with the base path you are serving from
+    (e.g. `/` for root, `/my-app/` for a subpath).
+    The flutter build tool substitutes this automatically via --base-href.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Pani, Puri &amp; Paps | The Funky Street Food">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Pani, Puri &amp; Paps">
+
+  <!-- Theme colours -->
+  <meta name="msapplication-TileColor" content="#F4B41A">
+  <meta name="theme-color" content="#F4B41A">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pani, Puri &amp; Paps | The Funky Street Food</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // Injected by `flutter build web`. Do not modify.
+    const serviceWorkerVersion = null;
+  </script>
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function () {
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: { serviceWorkerVersion: serviceWorkerVersion },
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
+            appRunner.runApp();
+          });
+        },
+      });
+    });
+  </script>
+</body>
+</html>
